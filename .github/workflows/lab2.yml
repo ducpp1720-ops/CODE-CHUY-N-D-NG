@@ -1,0 +1,23 @@
+name: Lab2 Product Sales validation
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Lab2_Product_Sales
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - run: python data/raw/generate_dataset.py
+      - run: python eda/eda.py
+      - run: python feature_engineering/feature_engineering.py
+      - run: python modeling/train_models.py
+      - run: python tests/smoke_test.py
