@@ -1,11 +1,26 @@
-# Chọn thuật toán - Practice 02
+# Chọn thuật toán — Practice 02
 
-Các ứng viên: Linear Regression, Ridge Regression, Decision Tree Regressor, Random Forest Regressor và Gradient Boosting Regressor.
+## Các ứng viên
 
-**Thuật toán được chọn: Tuned Ridge Regression.**
+- **Linear Regression:** baseline tuyến tính, dễ giải thích.
+- **Ridge Regression:** thêm L2 regularization, hữu ích khi có nhiều đặc trưng sau One-Hot Encoding và các biến tương quan.
+- **Decision Tree Regressor:** học quan hệ phi tuyến và tương tác giữa biến.
+- **Random Forest Regressor:** ensemble nhiều cây, giúp giảm variance.
+- **Gradient Boosting Regressor:** xây dựng cây tuần tự để giảm residual error.
 
-Ridge giữ cấu trúc tuyến tính dễ giải thích của Linear Regression nhưng thêm L2 regularization, hữu ích khi feature space có nhiều biến sau One-Hot Encoding và có tương quan giữa các biến.
+## Tiêu chí chọn
 
-Trong thực nghiệm, Tuned Ridge với `alpha=10` đạt RMSE thấp nhất trong bảng so sánh: MAE ≈ 14.393, MSE ≈ 324.924, RMSE ≈ 18.026, R² ≈ 0.725.
+Tất cả model được train theo cùng pipeline và đánh giá bằng **MAE, MSE, RMSE và R²**. Tiêu chí chính là **RMSE thấp nhất**.
 
-Kết luận được đưa ra từ thực nghiệm, không mặc định rằng Random Forest hay Gradient Boosting luôn tốt hơn.
+Sau model comparison, Ridge được tuning bằng `GridSearchCV` 5-fold trên `alpha = [0.01, 0.1, 1, 10, 50, 100]`.
+
+## Kết quả hiện tại
+
+**Tuned Ridge Regression** được chọn với `alpha = 10`.
+
+- MAE ≈ 14.487
+- MSE ≈ 332.030
+- RMSE ≈ 18.222
+- R² ≈ 0.719
+
+Không chọn model theo cảm tính; kết quả được sinh tự động từ `modeling/train_models.py`.
